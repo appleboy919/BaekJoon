@@ -12,3 +12,7 @@ for i in range(1, 3):
 # print("( 0 )\"\"\"\\")
 # print("|\"^\"`    |")
 # print("||_/=\\\\__|")
+
+a, b = input().split()
+
+print(a, b)
