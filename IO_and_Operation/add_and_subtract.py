@@ -1,0 +1,5 @@
+a, b = input().split()
+sum = int(a)+int(b)
+subtract = int(a)-int(b)
+print("addition:", sum)
+print("subtraction:", subtract)
