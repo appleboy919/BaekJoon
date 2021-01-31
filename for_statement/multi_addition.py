@@ -7,5 +7,7 @@ for i in range(0, T):
     b = int(b)
     sum.append(a+b)
 
+i = 1
 for k in sum:
-    print(k)
+    print('Case #{}: {}'.format(i, k))
+    i += 1
