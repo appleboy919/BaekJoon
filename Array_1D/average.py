@@ -1,22 +1,9 @@
+import sys
+
 N = int(input())
-scores = list(map(int, input().split()))
-
-if N > 1:
-    max = scores[0]
-    max_index = 0
-    index = 0
-    for i in scores:
-        if i > max:
-            max = i
-            max_index = index
-        index += 1
-
-    sum = 0
-    index = 0
-    for i in scores:
-        if index == max_index:
-            continue
-        sum += i/max * 100
-else:
-    sum = scores[0]
-print('{}'.format(sum/N))
+scores = list(map(int, sys.stdin.readline().split()))
+max = max(scores)
+for i in range(N):
+    scores[i] = scores[i]/max*100
+avg = sum(scores)/N
+print(avg)
