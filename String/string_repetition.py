@@ -2,7 +2,7 @@ N = int(input())
 strings = []
 
 for i in range(N):
-    s = input()
+    n, s = input().split()
     temp_string = ''
     for c in s:
         temp_string += c*3
