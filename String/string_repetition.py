@@ -8,8 +8,5 @@ for i in range(N):
         temp_string += c*3
     strings.append(temp_string)
 
-index = 1
 for new_string in strings:
-    print(index, end=' ')
     print(new_string)
-    index += 1
