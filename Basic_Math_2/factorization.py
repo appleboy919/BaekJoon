@@ -1,3 +1,6 @@
+import math
+
+
 def next_primeNum(n):
     num = n
     while True:
@@ -27,6 +30,24 @@ def factorization(n):
     print(f'loop iteration: {loop}')
     return fact_list
 
+
+# This is a faster algorithm which checks the integer with i (1<i<sqrt(n)) for its factors
+def fast_factor(n):
+    fact_list = []
+    x = int(math.sqrt(n))
+    i = 2
+    while i <= x:
+        if n == 1:
+            return fact_list
+        if n % i == 0:
+            fact_list.append(i)
+            n //= i
+            i -= 1
+        i += 1
+    fact_list.append(n)
+    return fact_list
+
+
 """
 def factorization(n):
     temp = [2]
@@ -51,11 +72,13 @@ def factorization(n):
                 break
     return fact_list
 """
+
+
 def main():
     N = int(input())
     if N == 1:
         exit()
-    fact_nums = factorization(N)
+    fact_nums = fast_factor(N)
     for i in fact_nums:
         print(i)
 
