@@ -1,11 +1,13 @@
-def goldbach(n):
+def eratos_primenums(n):
     eratos = [True] * (n+1)
     x = int(n**(1/2))
     for i in range(2, x+1):
         if eratos[i]:
             for j in range(i**2, n+1, i):
                 eratos[j] = False
-    primeNums = [i for i in range(2, n) if eratos[i]]
+    return [i for i in range(2, n) if eratos[i]]
+
+def goldbach(primeNums, n):
     temp = []
     for i in primeNums:
         if n-i < i:
@@ -17,12 +19,12 @@ def goldbach(n):
 
 def main():
     T = int(input())
-    ans_list = []
+    inputs = []
     for i in range(T):
-        n = int(input())
-        ans_list.append(goldbach(n))
-    for s in ans_list:
-        print(s)
+        inputs.append(int(input()))
+    primeNums = eratos_primenums(max(inputs))
+    for i in inputs:
+        print(goldbach(primeNums, i))
 
 
 if __name__ == '__main__':
