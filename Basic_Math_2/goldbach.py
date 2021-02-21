@@ -7,6 +7,7 @@ def eratos_primenums(n):
                 eratos[j] = False
     return [i for i in range(2, n) if eratos[i]]
 
+
 def goldbach(primeNums, n):
     temp = []
     for i in primeNums:
@@ -17,14 +18,29 @@ def goldbach(primeNums, n):
     return f'{temp[0][0]} {temp[0][1]}'
 
 
+def is_primeNum(n):
+    x = int(n**(1/2))
+    for i in range(2, x+1):
+        if n % i == 0:
+            return False
+    return True
+
+
+# faster algorithm to get each goldbach's pair from half
+def fast_goldbach(n):
+    half = n//2
+    for i in range(half, 1, -1):
+        if is_primeNum(i) and is_primeNum(n-i):
+            return(i, n-i)
+
+
 def main():
     T = int(input())
-    inputs = []
+    ans = []
     for i in range(T):
-        inputs.append(int(input()))
-    primeNums = eratos_primenums(max(inputs))
-    for i in inputs:
-        print(goldbach(primeNums, i))
+        ans.append(fast_goldbach(int(input())))
+    for t in ans:
+        print(f'{t[0]} {t[1]}')
 
 
 if __name__ == '__main__':
