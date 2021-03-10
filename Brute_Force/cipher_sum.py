@@ -1,6 +1,22 @@
+def get_sum(n):
+    num_string = str(n)
+    sum = n
+    for i in range(len(num_string)):
+        sum += int(num_string[i])
+    return sum
+
+
 def min_gen(n):
-    pass
+    if n < 10:
+        return n // 2 if n % 2 == 0 else 0
+    else:
+        num_string = str(n)
+        temp_min = n - 9 * (len(num_string) - 1)
+        if len(str(temp_min)) != len(num_string):
+
 
 if __name__ == '__main__':
-    N = int(input())
-    print(min_gen(N))
+    while True:
+        N = int(input())
+        # print(min_gen(N))
+        print(f'{N} -> {get_sum(N)}')
