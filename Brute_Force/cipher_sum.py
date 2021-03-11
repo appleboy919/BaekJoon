@@ -11,12 +11,16 @@ def min_gen(n):
         return n // 2 if n % 2 == 0 else 0
     else:
         num_string = str(n)
-        temp_min = n - 9 * (len(num_string) - 1)
-        if len(str(temp_min)) != len(num_string):
+        temp = int('9'*(len(num_string)-1))
+        for i in range(n-temp,n):
+            x = get_sum(i)
+            print(f'{i} -> {x}')
+            if x==n:
+                return i
+        return 0
 
 
 if __name__ == '__main__':
     while True:
         N = int(input())
-        # print(min_gen(N))
-        print(f'{N} -> {get_sum(N)}')
+        print(min_gen(N))
