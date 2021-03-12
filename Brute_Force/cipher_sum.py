@@ -7,17 +7,22 @@ def get_sum(n):
 
 
 def min_gen(n):
-    if n < 10:
-        return n // 2 if n % 2 == 0 else 0
-    else:
-        num_string = str(n)
-        temp = int('9' * (len(num_string) - 1))
-        for i in range(n - temp, n):
-            x = get_sum(i)
-            print(f'{i} -> {x}')
-            if x == n:
-                return i
-        return 0
+    # if n < 10:
+    #     return n // 2 if n % 2 == 0 else 0
+    # else:
+    #     num_string = str(n)
+    #     temp = int('9' * (len(num_string) - 1))
+    #     for i in range(n - temp, n):
+    #         x = get_sum(i)
+    #         print(f'{i} -> {x}')
+    #         if x == n:
+    #             return i
+    #     return 0
+    for i in range(1, n):
+        x = get_sum(i)
+        if x == n:
+            return i
+    return 0
 
 
 if __name__ == '__main__':
