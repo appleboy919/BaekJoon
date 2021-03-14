@@ -16,3 +16,5 @@ if __name__ == '__main__':
     for i in a:
         print(i, end=' ')
     print()
+
+    # use sys.stdout for output
