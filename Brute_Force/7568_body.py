@@ -1,16 +1,23 @@
 def body_grades(l, a):
     len = len(l)
-    grades = []
+    temp = []
     index = 0
     grade = 1
-    num = 0
     maxH = -1
     maxW = -1
     max_index = 0
+    same_grades = False
     while grade > len:
         # find the largest
-        if not a[index] and maxH < l[index][0]:
+        if not a[index] and maxH <= l[index][0]:
             max_index = index
+            maxH = l[index][0]
+            if maxW == -1:
+                maxW = l[index][1]
+            else:
+                if maxW > l[index][1]:
+                    temp.append(index)
+                    same_grades = True
 
         index += 1
     index = 0
@@ -18,7 +25,6 @@ def body_grades(l, a):
     while index < len:
         if not a[index]:
             if
-
 
 
 if __name__ == '__main__':
