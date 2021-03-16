@@ -7,6 +7,7 @@ def body_grades(l, a):
         if not temp:
             temp.append([i])
         else:
+            # TODO: the problem is here!! (order of grouping)
             for same_grade in temp:
                 for data in same_grade:
                     if l[data][0] > l[i][0] and l[data][1] > l[i][1]:
