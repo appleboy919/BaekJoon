@@ -1,38 +1,38 @@
 def body_grades(l, a):
-    length = len(l)
+    # group each data with same tier
     temp = []
-    grade = 1
-    max_index = 0
-    max_data = None
-
-    while grade <= length:
-        # initialize max_data and temp list before getting into inner loop
-        max_data = None
-        temp = []
-        # start inner loop for biggest body data from the rest
-        for i in range(length):
-            if not a[i]:
-                if max_data:
-                    if max_data[0] < l[i][0] and max_data[1] < l[i][1]:
-                        max_data = l[i]
-                        max_index = i
-                        temp.clear()
-                    elif max_data[0] > l[i][0] and max_data[1] > l[i][1]:
+    jump = False
+    for i in range(len(l)):
+        jump = False
+        if not temp:
+            temp.append([i])
+        else:
+            for same_grade in temp:
+                for data in same_grade:
+                    if l[data][0] > l[i][0] and l[data][1] > l[i][1]:
+                        pass
+                    elif l[data][0] < l[i][0] and l[data][1] < l[i][1]:
                         pass
                     else:
-                        temp.append(i)
-                else:
-                    max_data = l[i]
-                    max_index = i
+                        same_grade.append(i)
+                        jump = True
+                        break
+                if jump:
+                    break
+            if not jump:
+                temp.append([i])
 
-        if temp:  # if there are ties in the data
-            temp.append(max_index)
-            for j in temp:
-                a[j] = grade
-            grade += len(temp)
-        else:  # no ties
-            a[max_index] = grade
-            grade += 1
+    # grade each group of data
+    grade = 1
+    grades = []
+    for i in range(len(temp)):
+        grades.append((l[temp[i][0]][0], i))
+    grades = sorted(grades, reverse=True)
+    for g in grades:
+        for k in temp[g[1]]:
+            a[k] = grade
+        grade += len(temp[g[1]])
+    print('Done!')
 
 
 if __name__ == '__main__':
