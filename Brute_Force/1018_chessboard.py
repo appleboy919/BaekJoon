@@ -1,14 +1,14 @@
 def min_replacement(l, N, M):
-    ans = 50*50
-    for i in range(N-7):
-        for j in range(M-7):
+    ans = 8 * 8
+    for i in range(N - 7):
+        for j in range(M - 7):
             rep_num = 0
             if l[i][j] == 'B':
                 is_black = 1
             else:
                 is_black = -1
-            for row in range(i, i+8):
-                for col in range(j, j+8):
+            for row in range(i, i + 8):
+                for col in range(j, j + 8):
                     if is_black == 1:
                         if l[row][col] == 'W':
                             rep_num += 1
@@ -17,11 +17,10 @@ def min_replacement(l, N, M):
                             rep_num += 1
                     is_black *= -1
                 is_black *= -1
+            rep_num = 64-rep_num if rep_num > 32 else rep_num
             if ans > rep_num:
                 ans = rep_num
     return ans
-
-
 
 
 if __name__ == '__main__':
