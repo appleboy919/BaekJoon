@@ -34,5 +34,6 @@ if __name__ == '__main__':
     for i in range(N):
         nums.append(int(input()))
     nums = merge_sort(nums)
+    
     for i in nums:
         print(i)
