@@ -13,25 +13,25 @@ def count_sort(N):
     # modify count array to store sum of each previous counts
     index = 0
     while index < 10001:
+        if index == 0:
+            index += 1
+            continue
         counts[index] += counts[index - 1]
         index += 1
 
-    ans = []
+    # ans = []
     # print each numbers from the counts
     count = 0
     i = 0
     while i < 10001:
         counts[i] -= count
         while counts[i] != 0:
-            ans.append(i)
+            sys.stdout.write(f'{i}' + '\n')
             count += 1
             counts[i] -= 1
         i += 1
-    return ans
 
 
 if __name__ == '__main__':
     N = int(sys.stdin.readline())
-    sorted_list = count_sort(N)
-    for i in sorted_list:
-        sys.stdout.write(f'{i}' + '\n')
+    count_sort(N)
