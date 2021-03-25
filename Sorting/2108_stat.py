@@ -1,3 +1,6 @@
+import sys
+
+
 def arith_mean(nums, n):
     return round(sum(nums) / n)
 
@@ -27,9 +30,9 @@ if __name__ == '__main__':
     N = int(input())
     nums = []
     for i in range(N):
-        nums.append(int(input()))
+        nums.append(int(sys.stdin.readline()))
     mid_range = middle_and_range(nums, N)
-    print(arith_mean(nums, N))
-    print(mid_range[0])
-    print(frequent(nums, N))
-    print(mid_range[1])
+    sys.stdout.write(
+        str(arith_mean(nums, N)) + '\n' + str(mid_range[0]) + '\n' +
+        str(frequent(
+            nums, N)) + '\n' + str(mid_range[1]))
