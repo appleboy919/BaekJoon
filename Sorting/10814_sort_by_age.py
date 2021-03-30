@@ -16,7 +16,7 @@ def merge_sort(list, n):
         elif r == n - n // 2:
             temp.append(L[l])
             l += 1
-        elif L[l][0] <= R[r][0]:
+        elif int(L[l][0]) <= int(R[r][0]):
             temp.append(L[l])
             l += 1
         else:
