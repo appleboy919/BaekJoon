@@ -8,35 +8,37 @@ def print_list(list):
 
 
 def print_sequences(m, n):
-    seq = [i for i in range(1, m + 1)]
-    last_index = m - 1
-    temp_index = 0
-    index_flag = False
+    nums = [True] * n
+    seq = []
+    current_num = m
+    index = m - 1
+
+    for i in range(m):
+        nums[i] = False
+        seq.append(i)
+   
     while True:
-        while seq[last_index] <= n:
+        while True:
             print_list(seq)
-            seq[last_index] += 1
-
-        # set variables for backtracking
-        seq[last_index] -= 1
-        temp_index = last_index - 1
-
-        # backtrack indices
-        while temp_index >= 0:
-            if seq[temp_index] < seq[temp_index + 1] - 1:
-                index_flag = True
+            prv_num = current_num
+            while current_num <= n:
+                current_num += 1
+                if nums[current_num-1]:
+                    nums[current_num-1] = False
+                    break
+            if prv_num == current_num:
+                #this is end of loop
                 break
-            temp_index -= 1
+            seq[m-1] = current_num
+            nums[prv_num] = True
 
-        # find possible cases
-        if index_flag:
-            while temp_index <= last_index:
-                seq[temp_index] += 1
-                temp_index += 1
-            index_flag = False
-        else:
-            break
-
+        # increment previous index number
+        while True:
+            index += 1
+            while seq[index] <= n:
+                seq[index] += 1
+                if nums[seq[index]]:
+                    break
 
 if __name__ == '__main__':
     N, M = map(int, sys.stdin.readline().split())
