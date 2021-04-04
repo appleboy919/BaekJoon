@@ -15,30 +15,41 @@ def print_sequences(m, n):
 
     for i in range(m):
         nums[i] = False
-        seq.append(i)
-   
+        seq.append(i + 1)
+
     while True:
         while True:
             print_list(seq)
             prv_num = current_num
+            b_flag = True
+            current_num += 1
             while current_num <= n:
-                current_num += 1
-                if nums[current_num-1]:
-                    nums[current_num-1] = False
+                if nums[current_num - 1]:
+                    nums[current_num - 1] = False
+                    b_flag = False
                     break
-            if prv_num == current_num:
-                #this is end of loop
+                current_num += 1
+            if b_flag:
+                # this is end of loop
                 break
-            seq[m-1] = current_num
-            nums[prv_num] = True
+            seq[index] = current_num
+            nums[prv_num - 1] = True
 
         # increment previous index number
-        while True:
-            index += 1
+        loop_flag = True
+        while loop_flag:
+            index -= 1
+            prv_num = seq[index]
             while seq[index] <= n:
                 seq[index] += 1
-                if nums[seq[index]]:
+                if nums[seq[index] - 1]:
+                    loop_flag = False
+                    nums[seq[index] - 1] = False
+                    nums[prv_num - 1] = True
                     break
+        # start the other later indices numbers to the smallest numbers
+        # code here
+
 
 if __name__ == '__main__':
     N, M = map(int, sys.stdin.readline().split())
