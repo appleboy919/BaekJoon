@@ -51,13 +51,14 @@ def print_sequences(m, n):
             if index < 0:
                 end = True
                 break
-            prv_num = seq[index]
-            while seq[index] < n:
-                seq[index] += 1
-                if nums[seq[index] - 1]:
+            temp_num = seq[index]
+            while temp_num < n:
+                temp_num += 1
+                if nums[temp_num - 1]:
                     backtrack = True
-                    nums[seq[index] - 1] = False
-                    nums[prv_num - 1] = True
+                    nums[temp_num - 1] = False
+                    nums[seq[index] - 1] = True
+                    seq[index] = temp_num
                     break
 
             # set the rest of the numbers
