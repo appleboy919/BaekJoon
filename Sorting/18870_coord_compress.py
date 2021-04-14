@@ -9,10 +9,13 @@ def coord_compress(list):
         index += 1
     coord.sort()
     num = 0
-    current = coord[0][0]
+    prv = coord[0][0]
     for t in coord:
+        if t[0] != prv:
+            num += 1
         list[t[1]] = num
-
+        prv = t[0]
+    return list
 
 
 if __name__ == '__main__':
