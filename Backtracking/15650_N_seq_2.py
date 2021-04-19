@@ -14,21 +14,25 @@ def n_sequences(n, m):
         seq.append(i)
         num_used[i - 1] = False
     track_index = m - 1
-    i_flag = False
     while True:
-        current = seq[track_index]
-        while current <= n:
-            # print sequence
-            print_seq(seq)
+        # print sequence
+        print_seq(seq)
 
-            # increment seq number
-            current += 1
-            if num_used[current - 1]:
-                i_flag = True
-                seq[track_index] = current
-                break
-
-
+        # increment seq number
+        while True:
+            i_flag = False
+            current = seq[track_index]
+            while current <= n:
+                current += 1
+                if num_used[current - 1]:
+                    i_flag = True
+                    num_used[seq[track_index] - 1] = True
+                    num_used[current - 1] = False
+                    seq[track_index] = current
+                    break
+            if not i_flag:  # need back tracking
+                while track_index <= m - 1:
+                    track_index -= 1
 
 
 if __name__ == '__main__':
