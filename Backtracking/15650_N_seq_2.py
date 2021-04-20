@@ -31,8 +31,22 @@ def n_sequences(n, m):
                     seq[track_index] = current
                     break
             if not i_flag:  # need back tracking
-                while track_index <= m - 1:
+                # back track 1
+                b_flag = False
+                while not b_flag:
+                    num_used[seq[track_index] - 1] = True
                     track_index -= 1
+                    current = seq[track_index]
+                    while current <= n - (track_index - m + 1):
+                        current += 1
+                        if num_used[current - 1]:
+                            num_used[seq[track_index] - 1] = True
+                            seq[track_index] = current
+                            num_used[current - 1] = False
+                            b_flag = True
+                            break
+                if
+
 
 
 if __name__ == '__main__':
