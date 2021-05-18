@@ -7,7 +7,7 @@ def mark_col(board, row, col, n):
         row += 1
 
 
-def marK_diagonal(board, row, col, n):
+def mark_diagonal(board, row, col, n):
     while row < n and col < n:
         board[row][col] = False
         row += 1
@@ -28,7 +28,7 @@ def print_N_queens(n):
 
         # mark diagonal, row to False
         mark_col(board, row, init_col, n)
-        marK_diagonal(board, row, init_col, n)
+        mark_diagonal(board, row, init_col, n)
 
         # start the first inner loop for positioning queens on each row
         while row < n:
@@ -39,8 +39,10 @@ def print_N_queens(n):
                         ans += 1
                         continue
                     mark_col(board, row, col, n)
-                    marK_diagonal(board, row, col, n)
+                    mark_diagonal(board, row, col, n)
                     break
+            # backtrack
+            if row == n - 1:
 
 
 if __name__ == '__main__':
