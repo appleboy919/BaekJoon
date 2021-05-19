@@ -1,50 +1,53 @@
 import sys
 
 
-def mark_col(board, row, col, n):
-    while row <= n - 1:
-        board[row][col] = False
-        row += 1
+def mark_pos(n, board, row, col, check):
+    # check cells on same column
+    for i in range(row + 1, n):
+        board[i][col] = check
 
-
-def mark_diagonal(board, row, col, n):
+    # check diagonal cells
     while row < n and col < n:
-        board[row][col] = False
+        board[row][col] = check
         row += 1
         col += 1
 
 
-def print_N_queens(n):
+def N_queens(n):
+    colPos = [0] * n
     board = [[True] * n] * n
+    row = col = 0
     ans = 0
-    init_col = 0
-    # TODO: check diagonal??
-    row = 0
-
-    # start the outer loop
     while True:
-        # initial position of q on (1,1)
-        board[row][init_col] = False
+        for i in range(n):
+            if board[row][i]:
+                if row == n - 1:
+                    # test
+                    print('+1 at', str(row), str(col))
+                    ans += 1
+                    continue
+                colPos[row] = i
+                mark_pos(n, board, row, i, False)
+                break
 
-        # mark diagonal, row to False
-        mark_col(board, row, init_col, n)
-        mark_diagonal(board, row, init_col, n)
-
-        # start the first inner loop for positioning queens on each row
-        while row < n:
-            row += 1
-            for col in range(n):
-                if board[row][col]:
-                    if row == n - 1:
-                        ans += 1
-                        continue
-                    mark_col(board, row, col, n)
-                    mark_diagonal(board, row, col, n)
-                    break
-            # backtrack
-            if row == n - 1:
+        # backtrack starts here
+        if row == n - 1:
+            end_bt = False
+            while row >= 0 and not end_bt:
+                row -= 1
+                for i in range(colPos[row], n):
+                    if board[row][i]:
+                        end_bt = True
+                        colPos[row] = i
+                        mark_pos(n, board, row, col, False)
+                        break
+                if not end_bt:
+                    mark_pos(n, board, row, colPos[row], True)
+            if not end_bt and row == 0:
+                break
+        row += 1
 
 
 if __name__ == '__main__':
     N = int(sys.stdin.readline())
-    print_N_queens(N)
+    sys.stdout.write(str(N_queens(N)))
