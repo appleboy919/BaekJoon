@@ -1,6 +1,7 @@
 import sys
 
 # check the current position
+# TODO: try to save the diagonal state rather than running each function
 def check_pos(n, cols, row, col):
     col_num = 0
     while row > 0:
