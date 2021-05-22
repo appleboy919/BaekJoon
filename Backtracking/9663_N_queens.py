@@ -1,4 +1,6 @@
 import sys
+import time
+
 
 # check the current position
 # TODO: try to save the diagonal state rather than running each function
@@ -20,7 +22,8 @@ def N_queens(n):
     colPos = [-1] * n
     row = 0
     ans = 0
-
+    total_time = time.time()
+    bt_time = 0
     # start the outer loop
     while True:
 
@@ -33,7 +36,7 @@ def N_queens(n):
                     continue
                 colPos[row] = i
                 break
-
+        temp = time.time()
         # backtrack starts here
         if colPos[row] == -1:
             end_bt = False
@@ -48,7 +51,11 @@ def N_queens(n):
                     colPos[row] = -1
             if not end_bt and row == 0:
                 break
+        bt_time = bt_time + (time.time() - temp)
         row += 1
+    total_time = time.time() - total_time
+    print('total time:', total_time)
+    print('backtrack time:', bt_time)
     return ans
 
 
