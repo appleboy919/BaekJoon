@@ -3,7 +3,6 @@ import time
 
 
 # check the current position
-# TODO: try to save the diagonal state rather than running each function
 def check_pos(n, cols, row, col):
     col_num = 0
     while row > 0:
@@ -20,6 +19,7 @@ def check_pos(n, cols, row, col):
 
 def N_queens(n):
     colPos = [-1] * n
+    temp_col = [i for i in range(n)]
     row = 0
     ans = 0
     total_time = time.time()
@@ -28,7 +28,7 @@ def N_queens(n):
     while True:
 
         # check each cell in the current row
-        for i in range(n):
+        for i in temp_col:
             if check_pos(n, colPos, row, i):
                 # n-th queen has been placed --> +1
                 if row == n - 1:
