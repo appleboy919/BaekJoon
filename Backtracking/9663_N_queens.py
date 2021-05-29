@@ -1,6 +1,8 @@
 import sys
 import time
 
+ans = 0
+
 
 # check the current position
 def check_pos(n, cols, row, col):
@@ -15,54 +17,20 @@ def check_pos(n, cols, row, col):
     return True
 
 
-def N_queens(n):
-    colPos = [-1] * n
-    temp_col = [i for i in range(n)]
-    row = 0
-    ans = 0
-    total_time = time.time()
-    bt_time = 0
-    # start the outer loop
-    while True:
-
-        # check each cell in the current row
-        for i in temp_col:
-            if check_pos(n, colPos, row, i):
-                # n-th queen has been placed --> +1
-                if row == n - 1:
-                    ans += 1
-                    continue
-                colPos[row] = i
-                temp_col.remove(i)
-                break
-        temp = time.time()
-        # backtrack starts here
-        if colPos[row] == -1:
-            end_bt = False
-            while row > 0 and not end_bt:
-                row -= 1
-                for i in [i for i in temp_col if i > colPos[row]]:
-                    if check_pos(n, colPos, row, i):
-                        end_bt = True
-                        temp_col.append(colPos[row])
-                        temp_col.sort()
-                        colPos[row] = i
-                        temp_col.remove(i)
-                        break
-                if not end_bt:
-                    temp_col.append(colPos[row])
-                    temp_col.sort()
-                    colPos[row] = -1
-            if not end_bt and row == 0:
-                break
-        bt_time = bt_time + (time.time() - temp)
-        row += 1
-    total_time = time.time() - total_time
-    print('total time:', total_time)
-    print('backtrack time:', bt_time)
-    return ans
+def n_queen(n, cols, row):
+    for i in [i for i in range(n) if i not in cols]:
+        if check_pos(n, cols, row, i):
+            if row == n - 1:
+                global ans
+                ans += 1
+            else:
+                cols[row] = i
+                temp_cols = cols[:]
+                n_queen(n, temp_cols, row + 1)
 
 
-if __name__ == '__main__':
-    N = int(sys.stdin.readline())
-    sys.stdout.write(str(N_queens(N)))
+temp = time.time()
+n = int(sys.stdin.readline())
+n_queen(n, [-1] * n, 0)
+print(f'total time: {time.time() - temp}')
+sys.stdout.write(str(ans))
