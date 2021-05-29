@@ -5,32 +5,32 @@ ans = 0
 
 
 # check the current position
-def check_pos(n, cols, row, col):
+def check_pos(cols, row, col):
     col_num = 0
+    init_row = row
     while row > 0:
         row -= 1
-        col_num += 1
-        if col - col_num >= 0 and cols[row] == col - col_num:
-            return False
-        if col - col_num < n and cols[row] == col + col_num:
+        if abs(init_row - row) == abs(cols[row] - col):
             return False
     return True
 
 
-def n_queen(n, cols, row):
-    for i in [i for i in range(n) if i not in cols]:
-        if check_pos(n, cols, row, i):
+def n_queen(n, cols, row, emp_cols):
+    for i in emp_cols:
+        if check_pos(cols, row, i):
             if row == n - 1:
                 global ans
                 ans += 1
             else:
                 cols[row] = i
                 temp_cols = cols[:]
-                n_queen(n, temp_cols, row + 1)
+                temp_emp = emp_cols[:]
+                temp_emp.remove(i)
+                n_queen(n, temp_cols, row + 1, temp_emp)
 
 
 temp = time.time()
-n = int(sys.stdin.readline())
-n_queen(n, [-1] * n, 0)
+N = int(sys.stdin.readline())
+n_queen(N, [-1] * N, 0, [i for i in range(N)])
 print(f'total time: {time.time() - temp}')
 sys.stdout.write(str(ans))
