@@ -8,8 +8,6 @@ def check_pos(n, cols, row, col):
     while row > 0:
         row -= 1
         col_num += 1
-        if cols[row] == col:
-            return False
         if col - col_num >= 0 and cols[row] == col - col_num:
             return False
         if col - col_num < n and cols[row] == col + col_num:
@@ -35,6 +33,7 @@ def N_queens(n):
                     ans += 1
                     continue
                 colPos[row] = i
+                temp_col.remove(i)
                 break
         temp = time.time()
         # backtrack starts here
@@ -42,12 +41,17 @@ def N_queens(n):
             end_bt = False
             while row > 0 and not end_bt:
                 row -= 1
-                for i in range(colPos[row] + 1, n):
+                for i in [i for i in temp_col if i > colPos[row]]:
                     if check_pos(n, colPos, row, i):
                         end_bt = True
+                        temp_col.append(colPos[row])
+                        temp_col.sort()
                         colPos[row] = i
+                        temp_col.remove(i)
                         break
                 if not end_bt:
+                    temp_col.append(colPos[row])
+                    temp_col.sort()
                     colPos[row] = -1
             if not end_bt and row == 0:
                 break
