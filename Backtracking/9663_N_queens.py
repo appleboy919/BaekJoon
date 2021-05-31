@@ -24,8 +24,7 @@ def n_queen(n, cols, row, emp_cols):
             else:
                 cols[row] = i
                 temp_cols = cols[:]
-                temp_emp = emp_cols[:]
-                temp_emp.remove(i)
+                temp_emp = [k for k in emp_cols if k != i]
                 n_queen(n, temp_cols, row + 1, temp_emp)
 
 
