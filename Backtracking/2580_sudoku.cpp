@@ -33,11 +33,16 @@ bool fill_sudoku(int sudoku[9][9], list<string> blank,
     int pos1 = temp[0] - '0';
     int pos2 = temp[1] - '0';
     find_number(sudoku, pos1, pos2, nums);
+    int temp_sudoku[9][9];
+    copy(&sudoku[0][0], &sudoku[0][0] + 9 * 9, &temp_sudoku[0][0]);
     for (int i = 0; i < 9; i++) {
         if (nums[i]) {
-            sudoku[pos1][pos2] = i + 1;
-            if (*itr == blank.back() || fill_sudoku(sudoku, blank, ++itr))
+            temp_sudoku[pos1][pos2] = i + 1;
+            if (*itr == blank.back() ||
+                fill_sudoku(temp_sudoku, blank, ++itr)) {
+                sudoku[pos1][pos2] = i + 1;
                 return true;
+            }
         }
     }
     return false;
