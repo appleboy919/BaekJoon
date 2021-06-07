@@ -51,6 +51,7 @@ int main(void) {
     // clock_t start = clock();
     int sudoku[9][9];
     list<string> blank;
+    int init_size = 20;
     string t;
     int index;
     for (int i = 0; i < 9; i++) {
@@ -72,5 +73,10 @@ int main(void) {
             cout << sudoku[i][j] << " ";
         cout << endl;
     }
+<<<<<<< HEAD
     // cout << "time: " << (double)(clock() - start) << endl;
 }
+=======
+    cout << "time: " << (double)(clock() - start) << endl;
+}
+>>>>>>> refs/remotes/origin/master
