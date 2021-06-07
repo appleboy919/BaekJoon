@@ -1,7 +1,7 @@
 #include <iostream>
 #include <list>
 #include <string>
-#include <time.h>
+// #include <time.h>
 
 using namespace std;
 
@@ -33,13 +33,13 @@ bool fill_sudoku(int sudoku[9][9], list<string> blank,
     int pos1 = temp[0] - '0';
     int pos2 = temp[1] - '0';
     find_number(sudoku, pos1, pos2, nums);
-    int temp_sudoku[9][9];
-    copy(&sudoku[0][0], &sudoku[0][0] + 9 * 9, &temp_sudoku[0][0]);
+    // int temp_sudoku[9][9];
+    // copy(&sudoku[0][0], &sudoku[0][0] + 9 * 9, &temp_sudoku[0][0]);
     for (int i = 0; i < 9; i++) {
         if (nums[i]) {
-            temp_sudoku[pos1][pos2] = i + 1;
-            if (*itr == blank.back() ||
-                fill_sudoku(temp_sudoku, blank, ++itr)) {
+            sudoku[pos1][pos2] = i + 1;
+            if (blank.back().compare(*itr) == 0 ||
+                fill_sudoku(sudoku, blank, ++itr)) {
                 sudoku[pos1][pos2] = i + 1;
                 return true;
             }
@@ -48,7 +48,7 @@ bool fill_sudoku(int sudoku[9][9], list<string> blank,
     return false;
 }
 int main(void) {
-    clock_t start = clock();
+    // clock_t start = clock();
     int sudoku[9][9];
     list<string> blank;
     string t;
@@ -56,7 +56,7 @@ int main(void) {
     for (int i = 0; i < 9; i++) {
         index = 0;
         getline(cin, t);
-        for (int j = 0; j < t.length(); j++) {
+        for (int j = 0; j < 17; j++) {
             if (t[j] != ' ') {
                 if (t[j] == '0')
                     blank.push_back(to_string(i) + to_string(index));
@@ -66,10 +66,11 @@ int main(void) {
         }
     }
     fill_sudoku(sudoku, blank, blank.begin());
+    // cout << endl;
     for (int i = 0; i < 9; i++) {
         for (int j = 0; j < 9; j++)
             cout << sudoku[i][j] << " ";
         cout << endl;
     }
-    cout << "time: " << (double)(clock() - start) << endl;
+    // cout << "time: " << (double)(clock() - start) << endl;
 }
