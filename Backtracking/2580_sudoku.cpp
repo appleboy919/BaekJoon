@@ -50,17 +50,27 @@ bool fill_sudoku(int sudoku[9][9], list<string> blank,
 int main(void) {
     // clock_t start = clock();
     int sudoku[9][9];
-    list<string> blank;
-    int init_size = 20;
-    string t;
+    // list<string> blank;
+    int num = 0;
+    int blank_num = 20;
+    int blank[blank_num][2];
     int index;
+    string t;
     for (int i = 0; i < 9; i++) {
         index = 0;
         getline(cin, t);
         for (int j = 0; j < 17; j++) {
             if (t[j] != ' ') {
-                if (t[j] == '0')
-                    blank.push_back(to_string(i) + to_string(index));
+                if (t[j] == '0') {
+                    if (num == blank_num) {
+                        blank_num += 10;
+                        int temp[blank_num][2];
+                    }
+                    // blank.push_back(to_string(i) + to_string(index));
+                    blank[num][0] = i;
+                    blank[num][1] = index;
+                    num++;
+                }
                 sudoku[i][index] = t[j] - '0';
                 index++;
             }
@@ -73,10 +83,5 @@ int main(void) {
             cout << sudoku[i][j] << " ";
         cout << endl;
     }
-<<<<<<< HEAD
     // cout << "time: " << (double)(clock() - start) << endl;
 }
-=======
-    cout << "time: " << (double)(clock() - start) << endl;
-}
->>>>>>> refs/remotes/origin/master
