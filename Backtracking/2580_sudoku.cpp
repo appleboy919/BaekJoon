@@ -1,6 +1,7 @@
 #include <iostream>
 #include <list>
 #include <string>
+#define MAX_BLANK 64
 // #include <time.h>
 
 using namespace std;
@@ -24,25 +25,24 @@ void find_number(int sudoku[9][9], int row, int col, bool nums[9]) {
                 nums[sudoku[i][j] - 1] = false;
     }
 }
-bool fill_sudoku(int sudoku[9][9], list<string> blank,
-                 list<string>::iterator itr) {
+bool fill_sudoku(int sudoku[9][9], int blank[MAX_BLANK][2], int num,
+                 int index) {
+    if (index == num)
+        return true;
     bool nums[9] = {0};
     for (int i = 0; i < 9; i++)
         nums[i] = true;
-    string temp = *itr;
-    int pos1 = temp[0] - '0';
-    int pos2 = temp[1] - '0';
+    // string temp = *itr;
+    int pos1 = blank[index][0];
+    int pos2 = blank[index][1];
     find_number(sudoku, pos1, pos2, nums);
     // int temp_sudoku[9][9];
     // copy(&sudoku[0][0], &sudoku[0][0] + 9 * 9, &temp_sudoku[0][0]);
     for (int i = 0; i < 9; i++) {
         if (nums[i]) {
             sudoku[pos1][pos2] = i + 1;
-            if (blank.back().compare(*itr) == 0 ||
-                fill_sudoku(sudoku, blank, ++itr)) {
-                sudoku[pos1][pos2] = i + 1;
+            if (fill_sudoku(sudoku, blank, num, index + 1))
                 return true;
-            }
         }
     }
     return false;
@@ -52,8 +52,7 @@ int main(void) {
     int sudoku[9][9];
     // list<string> blank;
     int num = 0;
-    int blank_num = 20;
-    int blank[blank_num][2];
+    int blank[MAX_BLANK][2];
     int index;
     string t;
     for (int i = 0; i < 9; i++) {
@@ -62,10 +61,6 @@ int main(void) {
         for (int j = 0; j < 17; j++) {
             if (t[j] != ' ') {
                 if (t[j] == '0') {
-                    if (num == blank_num) {
-                        blank_num += 10;
-                        int temp[blank_num][2];
-                    }
                     // blank.push_back(to_string(i) + to_string(index));
                     blank[num][0] = i;
                     blank[num][1] = index;
@@ -76,7 +71,7 @@ int main(void) {
             }
         }
     }
-    fill_sudoku(sudoku, blank, blank.begin());
+    fill_sudoku(sudoku, blank, num, 0);
     // cout << endl;
     for (int i = 0; i < 9; i++) {
         for (int j = 0; j < 9; j++)
