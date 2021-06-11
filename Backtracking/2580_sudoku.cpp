@@ -86,6 +86,7 @@ int main(void) {
     bool nums[9] = {1};
     string t;
 
+    // try to use getline and strtok funtion to read the input sudoku
     for (int i = 0; i < 9; i++) {
         index = 0;
         getline(cin, t);
