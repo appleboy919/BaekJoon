@@ -1,7 +1,6 @@
+#include <cstring>
 #include <iostream>
-#include <list>
-#include <string>
-int static MAX_BLANK = 81;
+#define MAX_BLANK 81
 // #include <time.h>
 
 using namespace std;
@@ -82,31 +81,57 @@ int main(void) {
     // list<string> blank;
     int num = 0;
     int blank[MAX_BLANK][2];
-    int index;
+    // int index;
     bool nums[9] = {1};
-    string t;
+    // string t;
 
-    // try to use getline and strtok funtion to read the input sudoku
+    // // try to use getline and strtok funtion to read the input sudoku
+    // for (int i = 0; i < 9; i++) {
+    //     index = 0;
+    //     getline(cin, t);
+    //     for (int j = 0; j < 18; j++) {
+    //         cout << "\n in\t" << t[j];
+    //         if (t[j] != ' ') {
+    //             if (t[j] == '0') {
+    //                 // blank.push_back(to_string(i) + to_string(index));
+    //                 blank[num][0] = i;
+    //                 blank[num][1] = index;
+    //                 num++;
+    //             }
+    //             sudoku[i][index] = t[j] - '0';
+    //             index++;
+    //         }
+    //     }
+    //     cout << endl;
+    //     cout << "!!" << num << endl;
+    // }
+    // cout << endl << num << endl;
+
+    char input[20];
+    // string input;
+    char *token;
+    int col;
     for (int i = 0; i < 9; i++) {
-        index = 0;
-        getline(cin, t);
-        for (int j = 0; j < 18; j++) {
-            cout << "\n in\t" << t[j];
-            if (t[j] != ' ') {
-                if (t[j] == '0') {
-                    // blank.push_back(to_string(i) + to_string(index));
-                    blank[num][0] = i;
-                    blank[num][1] = index;
-                    num++;
-                }
-                sudoku[i][index] = t[j] - '0';
-                index++;
+        cin.getline(input, 18);
+        col = 0;
+        token = strtok(input, " ");
+        while (token) {
+            sudoku[i][col] = stoi(token);
+            if (sudoku[i][col] == 0) {
+                blank[num][0] = i;
+                blank[num][1] = col;
+                num++;
             }
+            token = strtok(NULL, " ");
+            col++;
         }
-        cout << endl;
-        cout << "!!" << num << endl;
     }
-    cout << endl << num << endl;
+    cout << endl << num << "!!!!" << endl;
+    for (int i = 0; i < 9; i++) {
+        for (int j = 0; j < 9; j++)
+            cout << sudoku[i][j] << " ";
+        cout << endl;
+    }
 
     fill_sudoku(sudoku, blank, num, 0, nums);
     cout << endl;
@@ -117,3 +142,4 @@ int main(void) {
     }
     // cout << "time: " << (double)(clock() - start) << endl;
 }
+

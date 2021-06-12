@@ -4,6 +4,9 @@ import time
 ans = 0
 
 
+l = [1,2,3,4,5]
+
+
 # check the current position
 def check_pos(cols, row, col):
     col_num = 0
