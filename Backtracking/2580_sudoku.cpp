@@ -112,7 +112,7 @@ int main(void) {
     char *token;
     int col;
     for (int i = 0; i < 9; i++) {
-        cin.getline(input, 18);
+        cin.getline(input, 19);
         col = 0;
         token = strtok(input, " ");
         while (token) {
@@ -142,4 +142,3 @@ int main(void) {
     }
     // cout << "time: " << (double)(clock() - start) << endl;
 }
-
