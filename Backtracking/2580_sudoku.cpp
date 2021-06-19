@@ -110,21 +110,29 @@ int main(void) {
     char input[20];
     // string input;
     char *token;
-    int col;
+    // int col;
     for (int i = 0; i < 9; i++) {
-        cin.getline(input, 19);
-        col = 0;
-        token = strtok(input, " ");
-        while (token) {
-            sudoku[i][col] = stoi(token);
-            if (sudoku[i][col] == 0) {
+        for (int j = 0; j < 9; j++) {
+            cin >> sudoku[i][j];
+            if (sudoku[i][j] == 0) {
                 blank[num][0] = i;
-                blank[num][1] = col;
+                blank[num][1] = j;
                 num++;
             }
-            token = strtok(NULL, " ");
-            col++;
         }
+        // cin.getline(input, 19);
+        // col = 0;
+        // token = strtok(input, " ");
+        // while (token) {
+        //     sudoku[i][col] = stoi(token);
+        //     if (sudoku[i][col] == 0) {
+        //         blank[num][0] = i;
+        //         blank[num][1] = col;
+        //         num++;
+        //     }
+        //     token = strtok(NULL, " ");
+        //     col++;
+        // }
     }
     cout << endl << num << "!!!!" << endl;
     for (int i = 0; i < 9; i++) {
