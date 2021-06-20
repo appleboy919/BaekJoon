@@ -7,16 +7,22 @@ int main() {
     //     "0 3 5 4 6 9 2 7 8\n7 8 2 1 0 5 6 0 9\n0 6 0 2 7 8 1 3 5\n3 2 1 0 4 6
     //     " "8 9 7\n8 0 4 9 1 3 5 0 6\n5 9 6 8 2 0 4 1 3\n9 1 7 6 5 2 0 8 0\n6
     //     0 3 " "7 0 1 9 5 2\n2 5 8 3 9 4 7 6 0";
-    char input[20];
+    char input[100];
     // string input;
     char *token;
     int col;
-    for (int i = 0; i < 9; i++) {
-        cin.getline(input, 19);
-        cout << "input: " << input << "!" << endl;
+    for (int i = 0; i < 1; i++) {
+        cin.getline(input, 99);
+        cout << "input: " << input << "! (length: " << strlen(input) << ")"
+             << endl;
+        for (int j = 0; j < strlen(input); j++)
+            cout << int(input[j]) << " ";
+        cout << endl;
         col = 0;
         token = strtok(input, " ");
+        cout << "token: " << token << "." << endl;
         while (token) {
+            cout << "token: " << token << "." << endl;
             // if (strcmp(token, "\n") == 0)
             //     continue;
             sudoku[i][col] = stoi(token);
@@ -25,7 +31,7 @@ int main() {
         }
     }
     cout << endl;
-    for (int i = 0; i < 9; i++) {
+    for (int i = 0; i < 1; i++) {
         cout << i << ": ";
         for (int j = 0; j < 9; j++)
             cout << sudoku[i][j] << " ";
