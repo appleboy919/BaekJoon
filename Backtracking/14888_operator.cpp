@@ -1,6 +1,8 @@
 #include <iostream>
 #define OPR_NUM 4
 using namespace std;
+
+int *minMaxNum(int nums) {}
 int main() {
     int n;
     cin >> n;
