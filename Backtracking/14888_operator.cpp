@@ -1,15 +1,32 @@
 #include <iostream>
-#define OPR_NUM 4
 using namespace std;
 
-int *minMaxNum(int *nums, int num, int opr[OPR_NUM], int *temp) { return }
+int calculate(int *nums, int *temp_opr, int num) {
+    int ans = nums[0];
+    for (int i = 1; i < num; i++) {
+        switch (temp_opr[i - 1]) {
+        case 0:
+            ans += nums[i];
+        case 1:
+            ans -= nums[i];
+        case 2:
+            ans *= nums[i];
+        case 3:
+        }
+    }
+}
+int *minMaxNum(int *nums, int num, int opr[4], int *temp_opr, int *opr_rmd,
+               int ans[2]) {
+    if (nums)
+        return nums return
+}
 int main() {
     int n;
     cin >> n;
-    int nums[n], operators[OPR_NUM], temp[n - 1];
+    int nums[n], operators[4], temp[n - 1];
     for (int i = 0; i < n; i++)
         cin >> nums[i];
-    for (int i = 0; i < OPR_NUM; i++)
+    for (int i = 0; i < 4; i++)
         cin >> operators[i];
     int idx = 0;
     for (int i = 0; i < OPR_NUM; i++) {
