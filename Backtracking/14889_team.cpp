@@ -19,42 +19,17 @@ void minDiff(int n, int **s, int idx, int *temp, int idx2, int *temp2) {
                 idx2++;
             }
         }
-        cout << "t1(" << idx << ")\n";
-        for (int i = 0; i < idx; i++) {
-            cout << temp[i] << " ";
-        }
-        cout << endl;
-        cout << "t2(" << idx2 << ")\n";
-        for (int i = 0; i < idx2; i++) {
-            cout << temp2[i] << " ";
-        }
-        cout << endl;
-
-        // int t2, idx2;
-        // int temp2[idx];
         int t1, t2;
         t1 = teamStat(temp, s, idx);
         t2 = teamStat(temp2, s, idx2);
-        cout << "t1: " << t1 << "!\n"
-             << "t2: " << t2 << "!\n";
-        cout << endl;
         int diff = abs(t1 - t2);
         if (minVal > diff)
             minVal = diff;
         return;
     }
-    // int bt_idx2 = idx2;
-    for (int i = idx; i <= n - idx; i++) {
+    for (int i = temp[idx - 1] + 1; i <= n / 2 + idx; i++) {
         int new_idx2 = idx2;
         temp[idx] = i;
-        // for (int j = idx; j < i; j++) {
-        //     temp2[new_idx2] = j;
-        //     new_idx2++;
-        // }
-        // for (int j = 0; j < idx; j++) {
-        //     new_t1 += s[temp[j]][i];
-        //     new_t1 += s[i][temp[j]];
-        // }
         minDiff(n, s, idx + 1, temp, idx2, temp2);
         if (idx2 != n / 2) {
             temp2[idx2] = i;
@@ -75,7 +50,6 @@ int main() {
     }
     int team1[n / 2], team2[n / 2];
     team1[0] = 0;
-
     minDiff(n, s, 1, team1, 0, team2);
     cout << minVal << endl;
     return 0;
