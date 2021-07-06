@@ -6,5 +6,9 @@ int fibonacci(int n) {
 }
 
 int main(){
+
+    int n;
+    cin >> n;
+    fibonacci(n);
     return 0;
 }
