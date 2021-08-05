@@ -1,11 +1,8 @@
 #include <iostream>
 using namespace std;
-int max_len = -1;
-int minNum = 1001;
-int maxNum = 0;
 int dp[1001] = {0};
 int c[1001];
-int n;
+int n, ans;
 int solve(int n, int *c, int idx) {
     if (idx == n)
         return 1;
@@ -20,33 +17,6 @@ int solve(int n, int *c, int idx) {
     return dp[idx];
 }
 
-int sol(int n, int idx) {
-    if (idx == n) {
-        maxNum = c[idx];
-        cout << idx << ": 1!\n";
-        return 1;
-    }
-    int t = sol(n, idx + 1);
-    if (c[idx] < minNum) {
-        cout << "minNum changed! " << minNum;
-        minNum = c[idx];
-        cout << " -> " << minNum << endl;
-        cout << idx << ": " << t + 1 << endl;
-        dp[c[idx]] = t + 1;
-        return t + 1;
-    }
-    cout << idx << ": " << t << endl;
-    dp[c[idx]] = t;
-    return t;
-
-    // if (prvNum < c[idx])
-    //     return sol(n, c, idx + 1, minIdx, c[idx]) + 1;
-    // int t1 = 0;
-    // if (prvNum > c[idx])
-    //     int t1 = sol(n, c, idx + 1, idx, c[idx]);
-    // int t2 = sol(n, c, idx + 2, minIdx, c[idx]);
-    // return t1 > t2 ? t1 : t2;
-}
 int tempLIS(int idx) {
     int t = c[idx];
     int size = 1;
@@ -58,45 +28,48 @@ int tempLIS(int idx) {
     }
     return size;
 }
-int lis(int idx) {
-    if (idx == n) {
-        cout << c[idx] << ": 1!" << endl;
-        dp[c[idx]] = 1;
-        return 1;
+int nextLIS(int idx) {
+    for (int i = idx + 1; i <= n; i++) {
+        if (c[idx] < c[i])
+            return dp[c[i]];
     }
-    if (dp[c[idx]] == 0)
-        dp[c[idx]] = tempLIS(idx);
-
-    int t = lis(idx + 1);
+    return 0;
+}
+void lis(int idx) {
+    if (idx == n) {
+        cout << idx << ": 1!" << endl;
+        dp[c[idx]] = 1;
+        ans = 1;
+        return;
+    }
+    lis(idx + 1);
+    int t = nextLIS(idx);
+    dp[c[idx]] = t == 0 ? (dp[c[idx]] == 0 ? 1 : dp[c[idx]]) : t + 1;
+    if (dp[c[idx]] > ans)
+        ans = dp[c[idx]];
+    // int t = lis(idx + 1);
+    // if (dp[c[idx]] == 0)
+    //     dp[c[idx]] = tempLIS(idx);
     cout << idx << ": ";
-    if (c[idx] < c[idx + 1])
-        dp[c[idx]] =
-            dp[c[idx]] > dp[c[idx + 1]] ? dp[c[idx]] : dp[c[idx + 1]] + 1;
+    // if (c[idx] < c[idx + 1])
+    //     dp[c[idx]] =
+    //         dp[c[idx]] > dp[c[idx + 1]] ? dp[c[idx]] : dp[c[idx + 1]] + 1;
     cout << dp[c[idx]] << " / " << t << endl;
-    return dp[c[idx]] > t ? dp[c[idx]] : t;
+    // return dp[c[idx]] > t ? dp[c[idx]] : t;
 }
 int main() {
     cin >> n;
     for (int i = 1; i <= n; i++)
         cin >> c[i];
     // cout << sol(n, 1) << endl;
-    cout << lis(1) << endl;
+    lis(1);
+    cout << ans << endl;
     return 0;
 }
 /*
-2 3 1 4 3 6
-1 2 3 4 3 5
-
 1 2 1 3 2 5
-
-3 5 2 3 4 5
-
-2 3 2 4 5
-
-2 3 4 5 1 6
-
-2 1 2 3 4 5
-2 1 3 2 5 6
+2 5 1 4 5
+3 5 1 2 3 4
 */
 
 // void lis(int n, int idx) {
