@@ -68,8 +68,8 @@ int main() {
 }
 /*
 1 2 1 3 2 5
-2 5 1 4 5
 3 5 1 2 3 4
+1 3 5 2 3 4
 */
 
 // void lis(int n, int idx) {
