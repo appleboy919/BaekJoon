@@ -3,17 +3,6 @@ using namespace std;
 int dp[1001][2];
 int c[1001];
 int n, ans;
-void solve(int idx) {
-    if (idx == n) {
-        dp[n][0] = 1;
-        dp[n][1] = c[idx];
-        return dp[n][0];
-    }
-    solve(idx + 1);
-    if (c[idx] < dp[idx + 1][1]) {
-    }
-}
-
 int tempLIS(int idx) {
     int t = c[idx];
     int size = 1;
@@ -24,6 +13,47 @@ int tempLIS(int idx) {
         }
     }
     return size;
+}
+
+/*
+1 2 1 3 2 5
+
+3 5 1 2 3 4
+1 3 5 2 3 4
+
+3 1 2 5
+3 2 1 5
+2 4 1 5
+*/
+
+int solve(int idx) {
+    cout << idx << "....\n";
+    if (idx == n) {
+        cout << "n!!!-->1\n";
+        dp[n][0] = 1;
+        dp[n][1] = -1;
+        return n;
+    }
+    int lisIdx = solve(idx + 1);
+    if (c[idx] < c[lisIdx]) {
+        cout << c[idx] << " < " << c[lisIdx] << endl;
+        dp[idx][0] = dp[c[lisIdx]][0] + 1;
+        dp[idx][1] = lisIdx;
+    } else {
+        int tIdx = lisIdx;
+        // here
+        dp[idx][0] = 1;
+        dp[idx][1] = -1;
+        while (tIdx != -1) {
+            if (c[idx] < c[tIdx]) {
+                dp[idx][0] = dp[c[tIdx]][0] + 1;
+                dp[idx][1] = tIdx;
+                break;
+            }
+            tIdx = dp[tIdx][1];
+        }
+    }
+    return dp[idx][0] > dp[lisIdx][0] ? dp[idx][0] : dp[lisIdx][0];
 }
 // int nextLIS(int idx) {
 //     for (int i = idx + 1; i <= n; i++) {
@@ -62,15 +92,11 @@ int main() {
     for (int i = 1; i <= n; i++)
         cin >> c[i];
     // cout << sol(n, 1) << endl;
-    lis(1);
+    // lis(1);
+    ans = solve(1);
     cout << ans << endl;
     return 0;
 }
-/*
-1 2 1 3 2 5
-3 5 1 2 3 4
-1 3 5 2 3 4
-*/
 
 // void lis(int n, int idx) {
 //     dp[1] = 1;
